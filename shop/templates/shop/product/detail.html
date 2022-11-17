@@ -1,0 +1,25 @@
+{%load static%}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+        <a href="{{product.get_absolute_url}}" ><img src="{%if product.image%} {{product.image.url}} {%else%} {%static 'img/no_img.png'%} {%endif%}"></a>
+        <a href="{{product.get_absolute_url}}">{{product.name}}</a>
+        <a href="{{product.category.get_absolute_url}}">{{product.category}}</a>
+        <h1>{{product.price}}</h1>
+        <h1>{{product.description}}</h1>
+        <h1>{{product.stock}}</h1>
+        <p class="price">${{ product.price }}</p>
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+        <input type="submit" value="Add to cart">
+</form>
+</div>
+</body>
+</html>
